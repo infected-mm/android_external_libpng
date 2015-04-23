@@ -26,9 +26,12 @@ endif
 
 my_cflags_arm64 := -DPNG_ARM_NEON_OPT=2
 
+# Fix for using GCC compiler instead of clang in SaberMod ARM mode.
+ifneq ($(strip $(ENABLE_SABERMOD_ARM_MODE)),true)
 # BUG: http://llvm.org/PR19472 - SLP vectorization (on ARM at least) crashes
 # when we can't lower a vectorized bswap.
 my_cflags_arm += -fno-slp-vectorize
+endif
 
 my_src_files_arm := \
 			arm/arm_init.c \
